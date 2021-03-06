@@ -1,23 +1,12 @@
 import click
-import datetime
 from tabulate import tabulate
 import os
 import json
+from core import Time
+
 
 cli_version = "1.0.0-beta1"
 config_file = os.path.expanduser("~/.timr")
-
-
-def get_today_at_time(h, m):
-    today = datetime.datetime.today()
-    today_at_h = today.replace(hour=h, minute=m, second=0, microsecond=0)
-    return today_at_h
-
-
-def get_date_today_from_h_m_string(h_m_string):
-    time = h_m_string.split(":")
-    today_at_time = get_today_at_time(int(time[0]), int(time[1]))
-    return today_at_time
 
 
 @click.group()
@@ -28,14 +17,6 @@ def cli():
 @click.command()
 def version():
     click.echo(cli_version)
-
-
-def format_break_time(break_time):
-    if ':' in break_time:
-        split = break_time.split(":")
-        delta = datetime.timedelta(hours=int(split[0]), minutes=int(split[1]))
-        return(delta.seconds/3600)
-    return float(break_time.replace(",", "."))
 
 
 @click.command()
@@ -68,9 +49,10 @@ def calc(start_time, end_time, break_time, contract_hours_per_day, local_config)
     if not contract_hours_per_day:
         contract_hours_per_day = contract_hours_per_day_d
 
-    break_time = format_break_time(break_time)
-    start_today = get_date_today_from_h_m_string(start_time)
-    end_today = get_date_today_from_h_m_string(end_time)
+    time = Time.Time()
+    break_time = time.format_break_time(break_time)
+    start_today = time.get_date_today_from_h_m_string(start_time)
+    end_today = time.get_date_today_from_h_m_string(end_time)
     duration = end_today - start_today
     worked_h = float(duration.seconds/3600) - break_time
     extra = round(worked_h - float(contract_hours_per_day), 2)
