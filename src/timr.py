@@ -2,15 +2,17 @@
 
 import os
 import json
-from tabulate import tabulate # pylint: disable=import-error
+from tabulate import tabulate
 import click
-from core import time # pylint: disable=no-name-in-module
+from core import time
 
 
 CLI_VERSION = "1.0.0-beta1"
 config_file = os.path.expanduser("~/.timr")
 
 """Define the cli group"""
+
+
 @click.group()
 def cli():
     pass
@@ -27,7 +29,12 @@ def version():
 @click.option('-b', '--break-time', required=False)
 @click.option('-ch', '--contract-hours-per-day')
 @click.option('--local-config/--no-local-config', default=True)
-def calc(start_time, end_time, break_time, contract_hours_per_day, local_config):
+def calc(
+    start_time,
+    end_time,
+    break_time,
+    contract_hours_per_day,
+        local_config):
     # use from cli input, then config, then default
     if os.path.exists(config_file) and local_config:
         with open(config_file) as config:

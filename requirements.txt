@@ -1,3 +1,4 @@
 click
 tabulate
 pylint
+flake8
