@@ -1,14 +1,16 @@
-import click
-from tabulate import tabulate
+"""Time to submit while mobile working"""
+
 import os
 import json
-from core import Time
+from tabulate import tabulate # pylint: disable=import-error
+import click
+from core import time # pylint: disable=no-name-in-module
 
 
-cli_version = "1.0.0-beta1"
+CLI_VERSION = "1.0.0-beta1"
 config_file = os.path.expanduser("~/.timr")
 
-
+"""Define the cli group"""
 @click.group()
 def cli():
     pass
@@ -16,7 +18,7 @@ def cli():
 
 @click.command()
 def version():
-    click.echo(cli_version)
+    click.echo(CLI_VERSION)
 
 
 @click.command()
@@ -49,16 +51,16 @@ def calc(start_time, end_time, break_time, contract_hours_per_day, local_config)
     if not contract_hours_per_day:
         contract_hours_per_day = contract_hours_per_day_d
 
-    time = Time.Time()
-    break_time = time.format_break_time(break_time)
-    start_today = time.get_date_today_from_h_m_string(start_time)
-    end_today = time.get_date_today_from_h_m_string(end_time)
-    duration = end_today - start_today
+    times = time.Time()
+    break_time = times.format_break_time(break_time)
+    start_time = times.get_date_today_from_h_m_string(start_time)
+    end_time = times.get_date_today_from_h_m_string(end_time)
+    duration = end_time - start_time
     worked_h = float(duration.seconds/3600) - break_time
     extra = round(worked_h - float(contract_hours_per_day), 2)
     click.echo(tabulate([
-        ['Start time', start_today.time()],
-        ['End time', end_today.time()],
+        ['Start time', start_time.time()],
+        ['End time', end_time.time()],
         ['Duration at work', duration],
         ['Included break time', break_time],
         ['Hours worked', worked_h],
@@ -73,7 +75,11 @@ def calc(start_time, end_time, break_time, contract_hours_per_day, local_config)
 @click.option('--start-time', required=True, prompt='Provide a default start time of work')
 @click.option('--end-time', required=True, prompt='Provide a default end time of work')
 @click.option('--break-time', required=True, prompt='Provide a default break time')
-@click.option('--contract-hours-per-day', required=True, prompt='Provide a default for work hours per day')
+@click.option(
+    '--contract-hours-per-day',
+    required=True,
+    prompt='Provide a default for work hours per day'
+    )
 def configure(start_time, end_time, break_time, contract_hours_per_day):
     if os.path.exists(config_file):
         os.remove(config_file)
