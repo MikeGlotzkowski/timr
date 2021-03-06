@@ -2,6 +2,8 @@ import click
 import datetime
 
 cli_version = "1.0.0-beta1"
+one_day_of_work_in_h = delta = datetime.timedelta(
+    hours=7, minutes=24, seconds=00)
 
 
 def get_today_at_time(h, m):
@@ -34,7 +36,9 @@ def calc(start_time, end_time):
     end_today = get_date_today_from_h_m_string(end_time)
     click.echo(start_today)
     click.echo(end_today)
-    click.echo(end_today - start_today)
+    duration = end_today - start_today
+    click.echo(duration - one_day_of_work_in_h)
+    click.echo(float((duration - one_day_of_work_in_h).seconds/3600))
 
 
 cli.add_command(version)
