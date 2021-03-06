@@ -54,8 +54,8 @@ def calc(start_time, end_time, break_time, contract_hours_per_day, local_config)
             break_time_d = data["break"]
             contract_hours_per_day_d = data["contract"]
     else:
-        start_time_d = "8:15"
-        end_time_d = "18:00"
+        start_time_d = "9:00"
+        end_time_d = "17:30"
         break_time_d = "1"
         contract_hours_per_day_d = "7.4"
 
