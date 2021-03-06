@@ -5,7 +5,7 @@ import os
 import json
 
 cli_version = "1.0.0-beta1"
-config_file = "./.timr"
+config_file = os.path.expanduser("~/.timr")
 
 
 def get_today_at_time(h, m):
