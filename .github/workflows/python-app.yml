@@ -30,12 +30,13 @@ jobs:
         poetry run flake8 timr/ --statistics
     - name: build package 
       run: |
-        python -m build
+        poetry check
+        poetry show
+        poetry build
     - name: publish package (pypi test)
       env: 
         PIPY__TOKEN__: ${{ secrets.PIPY__TOKEN__ }}
       run: |
         poetry check
         poetry show
-        poetry build
         poetry publish --dry-run --username __token__ --password ${PIPY__TOKEN__}
