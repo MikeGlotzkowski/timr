@@ -35,7 +35,7 @@ jobs:
       env: 
         PIPY_TEST__TOKEN__: ${{ secrets.PIPY_TEST__TOKEN__ }}
       run: |
-        python -m twine upload --repository testpypi -username __token__ --password ${PIPY_TEST__TOKEN__} dist/*
+        python -m twine upload --repository testpypi --username __token__ --password ${PIPY_TEST__TOKEN__} dist/*
     # - name: Test with pytest
     #   run: |
     #     pytest
