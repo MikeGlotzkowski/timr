@@ -39,4 +39,4 @@ jobs:
       run: |
         poetry check
         poetry show
-        poetry publish --dry-run --username __token__ --password ${PIPY__TOKEN__}
+        poetry publish --username __token__ --password ${PIPY__TOKEN__}
