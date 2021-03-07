@@ -1,11 +1,11 @@
 # Time to submit while mobile working ヽ(´▽`)/
-
+[![Python application](https://github.com/MikeGlotzkowski/timr/actions/workflows/python-app.yml/badge.svg)](https://github.com/MikeGlotzkowski/timr/actions/workflows/python-app.yml)
 ## Setup (currently)
 
 ```bash
 python3 -m pip install poetry
 poetry install
-poetry shell -vvv
+poetry shell
 poetry run python timr/timr.py calc
 ```
 

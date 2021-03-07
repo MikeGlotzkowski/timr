@@ -37,6 +37,4 @@ jobs:
       env: 
         PIPY__TOKEN__: ${{ secrets.PIPY__TOKEN__ }}
       run: |
-        poetry check
-        poetry show
         poetry publish --username __token__ --password ${PIPY__TOKEN__}
