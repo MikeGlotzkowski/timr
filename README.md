@@ -6,7 +6,7 @@
 python3 -m pip install poetry
 poetry install
 poetry shell
-poetry run python timr/timr.py calc
+poetry run python timrr/timrr.py calc
 ```
 
 ## Short Docu
@@ -28,7 +28,7 @@ Options:
 ### configure defaults
 
 ```bash
-Usage: timr.py configure [OPTIONS]
+Usage: timrr.py configure [OPTIONS]
 
 Options:
   --start-time TEXT              [required]

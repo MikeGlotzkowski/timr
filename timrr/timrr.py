@@ -8,7 +8,7 @@ from core import time
 
 
 CLI_VERSION = "1.0.0"
-config_file = os.path.expanduser("~/.timr")
+config_file = os.path.expanduser("~/.timrr")
 
 """Define the cli group"""
 
