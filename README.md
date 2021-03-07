@@ -3,20 +3,10 @@
 ## Setup (currently)
 
 ```bash
-# first time
-python3 -m venv env
-source ./env/bin/activate
-python3 -m pip install -r requirements.txt
-(env) user@work:~/dev/timr$ python3 src/timr.py --help
-Usage: timr.py [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  calc
-  configure
-  version
+python3 -m pip install poetry
+poetry install
+poetry shell -vvv
+poetry run python timr/timr.py calc
 ```
 
 ## Short Docu
