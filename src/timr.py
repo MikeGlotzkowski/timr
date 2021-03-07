@@ -7,7 +7,7 @@ import click
 from core import time
 
 
-CLI_VERSION = "1.0.0-beta1"
+CLI_VERSION = "1.0.0"
 config_file = os.path.expanduser("~/.timr")
 
 """Define the cli group"""

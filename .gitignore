@@ -128,5 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# editor
+# editor and workspace
 .vscode
+_private
