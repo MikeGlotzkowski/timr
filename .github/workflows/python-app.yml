@@ -23,19 +23,19 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest twine build
-        python -m pip install .
+        pip install poetry
+        poetry install
     - name: Lint with flake8
       run: |
-        flake8 src/ --statistics
+        poetry run flake8 timr/ --statistics
     - name: build package 
       run: |
         python -m build
     - name: publish package (pypi test)
       env: 
-        PIPY_TEST__TOKEN__: ${{ secrets.PIPY_TEST__TOKEN__ }}
+        PIPY__TOKEN__: ${{ secrets.PIPY__TOKEN__ }}
       run: |
-        python -m twine upload --repository testpypi --username __token__ --password ${PIPY_TEST__TOKEN__} dist/*
-    # - name: Test with pytest
-    #   run: |
-    #     pytest
+        poetry check
+        poetry show
+        poetry build
+        poetry publish --dry-run --username __token__ --password ${PIPY__TOKEN__}
