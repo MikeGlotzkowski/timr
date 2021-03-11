@@ -4,13 +4,36 @@ import os
 import json
 from tabulate import tabulate
 import click
-from core import time
+import datetime
 
 
 CLI_VERSION = "1.0.0"
 config_file = os.path.expanduser("~/.timrr")
 
-"""Define the cli group"""
+
+def get_today_at_time(hours, minutes):
+    today = datetime.datetime.today()
+    today_at_h = today.replace(hour=hours, minute=minutes, second=0, microsecond=0)
+    return today_at_h
+
+
+def get_date_today_from_h_m_string(h_m_string):
+    time = h_m_string.split(":")
+    today_at_time = get_today_at_time(int(time[0]), int(time[1]))
+    return today_at_time
+
+
+def format_break_time(break_time):
+    if ':' in break_time:
+        split = break_time.split(":")
+        delta = datetime.timedelta(
+            hours=int(split[0]), minutes=int(split[1]))
+        return delta.seconds/3600
+    return float(break_time.replace(",", "."))
+
+
+def lines_that_contain(string, fp):
+    return [line for line in fp if string in line]
 
 
 @click.group()
@@ -20,7 +43,10 @@ def cli():
 
 @click.command()
 def version():
-    click.echo(CLI_VERSION)
+    with open("./pyproject.toml", "r") as fp:
+        for line in lines_that_contain("version", fp):
+            click.echo((line.split('"'))[1].split('"')[0])
+            return
 
 
 @click.command()
@@ -58,10 +84,9 @@ def calc(
     if not contract_hours_per_day:
         contract_hours_per_day = contract_hours_per_day_d
 
-    times = time.Time()
-    break_time = times.format_break_time(break_time)
-    start_time = times.get_date_today_from_h_m_string(start_time)
-    end_time = times.get_date_today_from_h_m_string(end_time)
+    break_time = format_break_time(break_time)
+    start_time = get_date_today_from_h_m_string(start_time)
+    end_time = get_date_today_from_h_m_string(end_time)
     duration = end_time - start_time
     worked_h = float(duration.seconds/3600) - break_time
     extra = round(worked_h - float(contract_hours_per_day), 2)
@@ -86,7 +111,7 @@ def calc(
     '--contract-hours-per-day',
     required=True,
     prompt='Provide a default for work hours per day'
-    )
+)
 def configure(start_time, end_time, break_time, contract_hours_per_day):
     if os.path.exists(config_file):
         os.remove(config_file)
