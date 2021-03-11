@@ -43,10 +43,13 @@ def cli():
 
 @click.command()
 def version():
-    with open("./pyproject.toml", "r") as fp:
-        for line in lines_that_contain("version", fp):
-            click.echo((line.split('"'))[1].split('"')[0])
-            return
+    try:
+        with open("./pyproject.toml", "r") as fp:
+            for line in lines_that_contain("version", fp):
+                click.echo((line.split('"'))[1].split('"')[0])
+                return
+    except Exception:
+        click.echo("1.0.1")
 
 
 @click.command()

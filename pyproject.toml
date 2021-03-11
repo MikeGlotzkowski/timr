@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "timrr"
-version = "1.0.0"
+version = "1.0.1"
 description = "Time to submit while mobile working"
 authors = ["MikeGlotzkowski <sebastian.lischewski@outlook.com>"]
 license = "GPL-3.0-or-later"
