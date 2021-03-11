@@ -2,11 +2,19 @@
 [![Python application](https://github.com/MikeGlotzkowski/timr/actions/workflows/python-app.yml/badge.svg)](https://github.com/MikeGlotzkowski/timr/actions/workflows/python-app.yml)
 ## Setup (currently)
 
+### docker tryout one-liner 
+
+```bash
+ docker run -it --rm python:3.9-slim-buster python3 -m pip install timrr && python3 -m timrr calc
+```
+
+### locally
+
 ```bash
 python3 -m pip install poetry
 poetry install
 poetry shell
-poetry run python timrr/timrr.py calc
+poetry run python3 timrr.py
 ```
 
 ## Short Docu
@@ -14,7 +22,7 @@ poetry run python timrr/timrr.py calc
 ### calculate work time
 
 ```bash
-Usage: timr.py calc [OPTIONS]
+Usage: timrr.py calc [OPTIONS]
 
 Options:
   -s, --start-time TEXT
