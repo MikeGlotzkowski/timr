@@ -27,7 +27,7 @@ jobs:
         poetry install
     - name: Lint with flake8
       run: |
-        poetry run flake8 timrr/ --statistics
+        poetry run flake8 timrr.py --statistics
     - name: build package 
       run: |
         poetry check
